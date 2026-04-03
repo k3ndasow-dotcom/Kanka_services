@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Assistance - Kanka Services</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; padding: 50px; }
+        .form-container { background: white; padding: 30px; border-radius: 10px; display: inline-block; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); text-align: left; }
+        input, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background-color: #2980b9; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        a { text-decoration: none; color: #7f8c8d; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <h1>🛠️ Demande d'Assistance</h1>
+    
+    <div class="form-container">
+        <label>Nom complet :</label>
+        <input type="text" id="client" placeholder="Votre nom">
+
+        <label>Description du problème :</label>
+        <textarea id="probleme" rows="4" placeholder="Ex: Mon ordinateur ne s'allume plus..."></textarea>
+
+        <button onclick="envoyerAssistance()">Envoyer la demande</button>
+        <br><br>
+        <center><a href="/">Retour à l'accueil</a></center>
+    </div>
+
+    <script>
+        function envoyerAssistance() {
+            const client = document.getElementById('client').value;
+            const probleme = document.getElementById('probleme').value;
+
+            if(!client || !probleme) {
+                alert("Oups ! Merci de remplir tous les champs.");
+                return;
+            }
+
+            fetch('/assistance', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ client: client, probleme: probleme })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                window.location.href = "/";
+            });
+        }
+    </script>
+</body>
+</html>

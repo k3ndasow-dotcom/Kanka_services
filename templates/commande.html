@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Passer une Commande - Kanka Services</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; padding: 50px; }
+        .form-container { background: white; padding: 30px; border-radius: 10px; display: inline-block; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); text-align: left; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background-color: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #219150; }
+        a { text-decoration: none; color: #7f8c8d; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <h1>📦 Formulaire de Commande</h1>
+    
+    <div class="form-container">
+        <label>Nom du Client :</label>
+        <input type="text" id="client" placeholder="Votre nom complet">
+
+        <label>Adresse de livraison :</label>
+        <input type="text" id="adresse" placeholder="Quartier, Ville">
+
+        <label>Produit / Service :</label>
+        <input type="text" id="produit" placeholder="Ex: Installation Logiciel, Laptop...">
+
+        <button onclick="envoyerCommande()">Valider la commande</button>
+        <br><br>
+        <center><a href="/">Retour à l'accueil</a></center>
+    </div>
+
+    <script>
+        // Ce petit script envoie les données à ton serveur Python
+        function envoyerCommande() {
+            const client = document.getElementById('client').value;
+            const adresse = document.getElementById('adresse').value;
+            const produit = document.getElementById('produit').value;
+
+            // On vérifie que les cases ne sont pas vides
+            if(!client || !adresse || !produit) {
+                alert("Merci de remplir toutes les cases !");
+                return;
+            }
+
+            // On envoie les données à la route "/commande" que tu as créée dans routes.py
+            fetch('/commande', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ client: client, adresse: adresse, produit: produit })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Affiche "Commande ajoutée avec succès"
+                window.location.href = "/"; // Revient à l'accueil
+            });
+        }
+    </script>
+
+</body>
+</html>
