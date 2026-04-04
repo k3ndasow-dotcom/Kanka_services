@@ -1,14 +1,22 @@
+const cacheName = 'kanka-v1';
+const assets = [
+  'index.html',
+  'manifest.json',
+  // Ajoute ici tes autres fichiers si nécessaire (ex: icônes)
+];
+
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open('kanka-v1').then((cache) => cache.addAll([
-      'index.html',
-      'manifest.json'
-    ]))
+    caches.open(cacheName).then((cache) => {
+      return cache.addAll(assets);
+    })
   );
 });
 
 self.addEventListener('fetch', (e) => {
   e.respondWith(
-    caches.match(e.request).then((response) => response || fetch(e.request))
+    caches.match(e.request).then((response) => {
+      return response || fetch(e.request);
+    })
   );
 });
