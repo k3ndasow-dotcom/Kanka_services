@@ -41,6 +41,150 @@
 
         footer { text-align: center; padding: 50px; color: #7f8c8d; font-size: 0.9rem; }
     </style>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KANKA SERVICES 🚀</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    
+    <link rel="manifest" href="manifest.json">
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+      }
+    </script>
+
+    <style>
+        body { font-family: 'Poppins', sans-serif; margin: 0; background: #f4f7f6; color: #2c3e50; line-height: 1.6; }
+        header { background: #2c3e50; color: white; padding: 2.5rem; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .container { max-width: 1000px; margin: auto; padding: 20px; }
+        .main-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 30px; }
+        .card { background: white; width: 280px; padding: 25px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: center; border-top: 6px solid #2980b9; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); }
+        .btn-order { display: inline-block; background: #2980b9; color: white; padding: 12px 20px; text-decoration: none; border-radius: 8px; margin-top: 15px; font-weight: bold; cursor: pointer; border: none; width: 100%; }
+        #maintenance-section, #section-artisan { display: none; margin-top: 50px; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); animation: fadeIn 0.6s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .price-badge { background: #e74c3c; color: white; padding: 5px 12px; border-radius: 5px; font-weight: bold; }
+        .logic-buttons { display: flex; justify-content: center; gap: 15px; margin: 25px 0; flex-wrap: wrap; }
+        .btn-choice { padding: 15px 25px; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; color: white; width: 220px; }
+        .btn-at { background: #34495e; }
+        .btn-dist { background: #FF7900; }
+        .form-box { display: none; background: #f9f9f9; padding: 20px; border-radius: 12px; border: 1px solid #eee; text-align: left; margin-top: 20px; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .btn-pay { background: #27ae60; color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; }
+        .payment-box { background: white; border: 1px dashed #27ae60; padding: 15px; border-radius: 10px; margin: 15px 0; }
+        .btn-metier { background:#f1f1f1; color:#333; padding:10px 20px; text-decoration:none; border-radius:30px; font-weight:bold; border:1px solid #27ae60; display: inline-block; margin: 5px; }
+        footer { text-align: center; padding: 50px; color: #7f8c8d; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>KANKA SERVICES 🚀</h1>
+    <p>Livraison | Artisans | Maintenance Informatique</p>
+</header>
+
+<div class="container">
+    <div class="main-grid">
+        <div class="card" style="border-top-color: #e67e22;">
+            <h3 style="color: #e67e22;">📦 Livraison</h3>
+            <p>Courses et colis livrés à domicile à Kankalabé.</p>
+            <a href="https://wa.me/224621813894?text=Bonjour,%20je%20souhaite%20une%20livraison" class="btn-order" style="background:#e67e22;">Commander</a>
+        </div>
+        <div class="card" style="border-top-color: #27ae60;">
+            <h3 style="color: #27ae60;">👨‍🔧 Artisans</h3>
+            <p>Mise en relation avec électriciens, maçons, plombiers...</p>
+            <button type="button" onclick="ouvrirArtisan()" class="btn-order" style="background:#27ae60;">Trouver un pro / S'inscrire</button>
+        </div>
+        <div class="card" style="border-top-color: #2980b9;">
+            <h3 style="color: #2980b9;">💻 Maintenance</h3>
+            <p>Réparation Ordi et Android (Logiciel & Matériel).</p>
+            <button type="button" onclick="ouvrirMaintenance()" class="btn-order" style="background:#2980b9;">Réparer mon appareil</button>
+        </div>
+    </div>
+
+    <div id="section-artisan">
+        <h3 style="color: #27ae60; text-align: center;">🛠️ Quel professionnel cherchez-vous ?</h3>
+        <div style="text-align: center; margin-bottom: 30px;">
+            <a href="https://wa.me/224621813894?text=Cherche%20Electricien" class="btn-metier">⚡ Électricien</a>
+            <a href="https://wa.me/224621813894?text=Cherche%20Plombier" class="btn-metier">🚰 Plombier</a>
+            <a href="https://wa.me/224621813894?text=Cherche%20Macon" class="btn-metier">🧱 Maçon</a>
+            <a href="https://wa.me/224621813894?text=Cherche%20Menuisier" class="btn-metier">🪑 Menuisier</a>
+            <a href="https://wa.me/224621813894?text=Cherche%20Peintre" class="btn-metier">🎨 Peintre</a>
+        </div>
+        <div style="background: #27ae60; color: white; padding: 25px; border-radius: 15px; text-align: center;">
+            <h4>👷 Vous êtes un ouvrier ?</h4>
+            <p>Frais : 20.000 GNF / an</p>
+            <a href="https://wa.me/224621813894?text=Inscription%20Ouvrier" style="background: white; color: #27ae60; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">S'enregistrer maintenant</a>
+        </div>
+    </div>
+
+    <div id="maintenance-section">
+        <h2 style="text-align:center;">🛠️ Assistance Technique</h2>
+        <p style="text-align:center;">Frais de diagnostic : <span class="price-badge">10.000 GNF</span></p>
+        <div class="logic-buttons">
+            <button class="btn-choice btn-at" onclick="afficherForm('at')">📍 Client à l'Atelier</button>
+            <button class="btn-choice btn-dist" onclick="afficherForm('dist')">🌐 Client à Distance</button>
+        </div>
+        <div id="form-at" class="form-box">
+            <h4>Enregistrement sur place</h4>
+            <input type="text" id="p-mod" placeholder="Modèle de l'appareil">
+            <textarea id="p-pan" placeholder="Panne constatée..."></textarea>
+            <div class="payment-box"><b>Paiement :</b> 628 22 93 72 / 660 18 47 28</div>
+            <button class="btn-pay" onclick="finaliser('Atelier')">Valider le dépôt</button>
+        </div>
+        <div id="form-dist" class="form-box">
+            <h4>Paiement à Distance</h4>
+            <div class="payment-box">1. Payez 10.000 GNF (OM/MoMo)<br>2. Demandez votre code sur WhatsApp</div>
+            <input type="text" id="d-code" placeholder="Entrez votre code secret">
+            <button class="btn-pay" onclick="validerCode()">Vérifier mon code</button>
+        </div>
+        <div id="confirmation" class="form-box" style="background:#e8f5e9; border:2px solid #27ae60; text-align:center;">
+            <h3 style="color:#27ae60;">✅ Dossier Ouvert</h3>
+            <p id="recap-text"></p>
+        </div>
+    </div>
+</div>
+
+<footer><p>© 2026 KANKA SERVICES - Kankalabé</p></footer>
+
+<script>
+    function ouvrirMaintenance() {
+        document.getElementById('section-artisan').style.display = 'none';
+        document.getElementById('maintenance-section').style.display = 'block';
+        window.scrollTo({ top: document.getElementById('maintenance-section').offsetTop - 20, behavior: 'smooth' });
+    }
+    function ouvrirArtisan() {
+        document.getElementById('maintenance-section').style.display = 'none';
+        document.getElementById('section-artisan').style.display = 'block';
+        window.scrollTo({ top: document.getElementById('section-artisan').offsetTop - 20, behavior: 'smooth' });
+    }
+    function afficherForm(type) {
+        document.getElementById('form-at').style.display = 'none';
+        document.getElementById('form-dist').style.display = 'none';
+        document.getElementById('confirmation').style.display = 'none';
+        document.getElementById('form-' + type).style.display = 'block';
+    }
+    function finaliser(mode) {
+        let mod = document.getElementById('p-mod').value;
+        if(mod === "") { alert("Précisez le modèle"); return; }
+        document.getElementById('form-at').style.display = 'none';
+        document.getElementById('confirmation').style.display = 'block';
+        document.getElementById('recap-text').innerHTML = "Dépôt de l'appareil : <b>" + mod + "</b> enregistré.";
+    }
+    function validerCode() {
+        let code = document.getElementById('d-code').value;
+        if(code.startsWith("KANKA") && code.endsWith("26") && code.length >= 7) {
+            document.getElementById('form-dist').style.display = 'none';
+            document.getElementById('confirmation').style.display = 'block';
+            document.getElementById('recap-text').innerHTML = "Accès à distance validé.";
+        } else { alert("Code incorrect."); }
+    }
+</script>
+</body>
+</html>
 </head>
 <body>
 
