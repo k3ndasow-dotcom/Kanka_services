@@ -1,0 +1,16 @@
+{
+  "name": "KANKA SERVICES",
+  "short_name": "KankaServ",
+  "description": "Livraison, Artisans et Maintenance à Kankalabé",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#2c3e50",
+  "theme_color": "#2c3e50",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2975/2975175.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
