@@ -6,98 +6,142 @@
     <title>KANKA SERVICES 🚀</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Poppins', sans-serif; margin: 0; background: #f4f7f6; color: #2c3e50; }
-        header { background: #2c3e50; color: white; padding: 2.5rem; text-align: center; }
-        .container { max-width: 900px; margin: auto; padding: 20px; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; background: #f4f7f6; color: #2c3e50; line-height: 1.6; }
+        header { background: #2c3e50; color: white; padding: 2.5rem; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .container { max-width: 1000px; margin: auto; padding: 20px; }
         
-        /* Grille des 3 services principaux */
+        /* GRILLE DES 3 SERVICES */
         .main-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 30px; }
         .card { 
-            background: white; width: 280px; padding: 20px; border-radius: 15px; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: center; border-top: 5px solid #2980b9;
+            background: white; width: 280px; padding: 25px; border-radius: 15px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: center; border-top: 6px solid #2980b9;
+            transition: 0.3s;
         }
-        
+        .card:hover { transform: translateY(-5px); }
         .btn-order { 
-            display: inline-block; background: #2980b9; color: white; padding: 10px 20px; 
-            text-decoration: none; border-radius: 8px; margin-top: 15px; font-weight: bold;
+            display: inline-block; background: #2980b9; color: white; padding: 12px 20px; 
+            text-decoration: none; border-radius: 8px; margin-top: 15px; font-weight: bold; cursor: pointer; border: none;
         }
 
-        /* Section Maintenance (Verrouillée) */
-        .lock-box { 
-            margin-top: 40px; background: #fff5f5; border: 2px dashed #e74c3c; 
-            padding: 30px; border-radius: 15px; text-align: center;
-        }
-        #maintenance-content { display: none; background: white; padding: 20px; border-radius: 15px; margin-top: 20px; }
+        /* SECTION MAINTENANCE (Cachée au début) */
+        #maintenance-section { display: none; margin-top: 50px; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); animation: fadeIn 0.6s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .price-badge { background: #e74c3c; color: white; padding: 5px 12px; border-radius: 5px; font-weight: bold; }
+        .logic-buttons { display: flex; justify-content: center; gap: 15px; margin: 25px 0; flex-wrap: wrap; }
+        .btn-choice { padding: 15px 25px; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; color: white; width: 220px; }
+        .btn-at { background: #34495e; }
+        .btn-dist { background: #FF7900; }
+
+        /* FORMULAIRES */
+        .form-box { display: none; background: #f9f9f9; padding: 20px; border-radius: 12px; border: 1px solid #eee; text-align: left; margin-top: 20px; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .btn-pay { background: #27ae60; color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; }
         
-        input[type="text"] { padding: 10px; width: 200px; border-radius: 5px; border: 1px solid #ddd; }
-        .btn-pay { background: #FF7900; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
+        .payment-box { background: white; border: 1px dashed #27ae60; padding: 15px; border-radius: 10px; margin: 15px 0; }
+        footer { text-align: center; padding: 50px; color: #7f8c8d; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>KANKA SERVICES 🚀</h1>
-    <p>Votre partenaire de confiance à Kankalabé</p>
+    <p>Livraison | Artisans | Maintenance Informatique</p>
 </header>
 
 <div class="container">
-    <h2 style="text-align:center;">Nos Services Disponibles</h2>
-
+    
     <div class="main-grid">
         <div class="card" style="border-top-color: #e67e22;">
-            <h3>📦 Livraison à Domicile</h3>
-            <p>Courses et colis livrés rapidement chez vous à Kankalabé.</p>
-            <a href="https://wa.me/224621813894?text=Je%20souhaite%20une%20livraison" class="btn-order">Commander</a>
+            <h3 style="color: #e67e22;">📦 Livraison</h3>
+            <p>Courses et colis livrés à domicile à Kankalabé.</p>
+            <a href="https://wa.me/224621813894?text=Bonjour,%20je%20souhaite%20une%20livraison" class="btn-order" style="background:#e67e22;">Commander</a>
         </div>
 
         <div class="card" style="border-top-color: #27ae60;">
-            <h3>👨‍🔧 Mise en Relation</h3>
-            <p>Trouvez les meilleurs électriciens, plombiers et maçons enregistrés.</p>
-            <a href="https://wa.me/224621813894?text=Je%20cherche%20un%20artisan" class="btn-order">Trouver un pro</a>
+            <h3 style="color: #27ae60;">👨‍🔧 Artisans</h3>
+            <p>Mise en relation avec électriciens, maçons, plombiers...</p>
+            <a href="https://wa.me/224621813894?text=Bonjour,%20je%20cherche%20un%20homme%20de%20métier" class="btn-order" style="background:#27ae60;">Trouver un pro</a>
         </div>
 
         <div class="card" style="border-top-color: #2980b9;">
-            <h3>💻 Maintenance Ordi/Android</h3>
-            <p>Réparation et optimisation de vos appareils numériques.</p>
-            <button onclick="document.getElementById('maintenance-lock').scrollIntoView({behavior:'smooth'})" class="btn-order">Voir tarifs</button>
+            <h3 style="color: #2980b9;">💻 Maintenance</h3>
+            <p>Réparation Ordi et Android (Logiciel & Matériel).</p>
+            <button onclick="ouvrirMaintenance()" class="btn-order">Réparer mon appareil</button>
         </div>
     </div>
 
-    <div class="lock-box" id="maintenance-lock">
-        <h3>🛠️ Assistance & Maintenance Privée</h3>
-        <p>Le diagnostic à distance nécessite un accès premium (10.000 GNF).</p>
+    <div id="maintenance-section">
+        <h2 style="text-align:center;">🛠️ Assistance Technique</h2>
+        <p style="text-align:center;">Frais de diagnostic obligatoire : <span class="price-badge">10.000 GNF</span></p>
         
-        <input type="text" id="codeMaintenance" placeholder="Entrez votre code">
-        <button onclick="checkAccess()" class="btn-pay">Débloquer l'accès</button>
-        
-        <p style="font-size: 13px; margin-top: 15px;">
-            Pas de code ? Payez par <strong>Orange (628 22 93 72)</strong> ou <strong>MTN (660 18 47 28)</strong> <br>
-            puis <a href="https://wa.me/224621813894?text=Paiement%20Maintenance%20effectué">cliquez ici pour recevoir votre code</a>.
-        </p>
+        <div class="logic-buttons">
+            <button class="btn-choice btn-at" onclick="afficherForm('at')">📍 Client à l'Atelier</button>
+            <button class="btn-choice btn-dist" onclick="afficherForm('dist')">🌐 Client à Distance</button>
+        </div>
 
-        <div id="maintenance-content">
-            <h4 style="color: #27ae60;">✅ Accès Maintenance Activé</h4>
-            <ul style="text-align: left; display: inline-block;">
-                <li>Récupération de données : 50.000 GNF</li>
-                <li>Flashage Android : 30.000 GNF</li>
-                <li>Installation Logiciels : 40.000 GNF</li>
-            </ul>
+        <div id="form-at" class="form-box">
+            <h4>Enregistrement sur place</h4>
+            <input type="text" id="p-mod" placeholder="Modèle de l'appareil">
+            <textarea id="p-pan" placeholder="Panne constatée..."></textarea>
+            <div class="payment-box">
+                <b>Paiement 10.000 GNF :</b> Espèces ou 628 22 93 72 / 660 18 47 28
+            </div>
+            <button class="btn-pay" onclick="finaliser('Atelier')">Valider le dépôt</button>
+        </div>
+
+        <div id="form-dist" class="form-box">
+            <h4>Paiement à Distance</h4>
+            <div class="payment-box">
+                1. Payez <b>10.000 GNF</b> (OM: 628 22 93 72 | MoMo: 660 18 47 28)<br>
+                2. Demandez votre code sur <a href="https://wa.me/224621813894?text=Je%20veux%20mon%20code%20maintenance" style="color:#27ae60; font-weight:bold;">WhatsApp</a>
+            </div>
+            <input type="text" id="d-code" placeholder="Entrez votre code secret reçu">
+            <button class="btn-pay" onclick="validerCode()">Vérifier mon code</button>
+        </div>
+
+        <div id="confirmation" class="form-box" style="background:#e8f5e9; border:2px solid #27ae60; text-align:center;">
+            <h3 style="color:#27ae60;">✅ Dossier Ouvert</h3>
+            <p id="recap-text"></p>
+            <p>Mamadou Kenda SOW va maintenant analyser votre panne et vous donner le prix final des travaux.</p>
         </div>
     </div>
+
 </div>
 
 <footer>
-    <p style="text-align:center; padding: 40px; color: #7f8c8d;">© 2026 KANKA SERVICES - Mamadou Kenda SOW</p>
+    <p>© 2026 KANKA SERVICES - Partenaire Numérique à Kankalabé</p>
 </footer>
 
 <script>
-    function checkAccess() {
-        var code = document.getElementById("codeMaintenance").value;
-        if(code === "KANKA2026") {
-            document.getElementById("maintenance-content").style.display = "block";
-            alert("Accès autorisé !");
+    function ouvrirMaintenance() {
+        document.getElementById('maintenance-section').style.display = 'block';
+        window.scrollTo({ top: document.getElementById('maintenance-section').offsetTop - 20, behavior: 'smooth' });
+    }
+
+    function afficherForm(type) {
+        document.getElementById('form-at').style.display = 'none';
+        document.getElementById('form-dist').style.display = 'none';
+        document.getElementById('confirmation').style.display = 'none';
+        document.getElementById('form-' + type).style.display = 'block';
+    }
+
+    function finaliser(mode) {
+        let mod = document.getElementById('p-mod').value;
+        if(mod === "") { alert("Précisez le modèle"); return; }
+        document.getElementById('form-at').style.display = 'none';
+        document.getElementById('confirmation').style.display = 'block';
+        document.getElementById('recap-text').innerHTML = "Dépôt physique de l'appareil : <b>" + mod + "</b>.<br>Frais de service réglés.";
+    }
+
+    function validerCode() {
+        let code = document.getElementById('d-code').value;
+        if(code.startsWith("KANKA") && code.endsWith("26") && code.length >= 7) {
+            document.getElementById('form-dist').style.display = 'none';
+            document.getElementById('confirmation').style.display = 'block';
+            document.getElementById('recap-text').innerHTML = "Accès à distance validé.<br>Frais de service réglés via Mobile Money.";
         } else {
-            alert("Code invalide. Contactez Mamadou au 621 81 38 94");
+            alert("Code incorrect ou non payé.");
         }
     }
 </script>
