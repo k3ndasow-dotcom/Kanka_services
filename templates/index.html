@@ -3,89 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kanka Services 🚀 - Accueil</title>
+    <title>KANKA SERVICES 🚀</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* Le CSS : C'est la décoration de ta page */
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            margin: 0; 
-            background-color: #f4f7f6; 
-            text-align: center;
-        }
-        header { 
-            background: #2c3e50; 
-            color: white; 
-            padding: 2rem; 
-            margin-bottom: 30px;
-        }
-        .container { 
-            max-width: 800px; 
-            margin: auto; 
-            background: white; 
-            padding: 40px; 
-            border-radius: 15px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
-        }
-        h1 { color: #ffffff; margin: 0; }
-        p { color: #7f8c8d; font-size: 1.2rem; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; background: #f4f7f6; color: #2c3e50; }
+        header { background: #2c3e50; color: white; padding: 2.5rem; text-align: center; }
+        .container { max-width: 900px; margin: auto; padding: 20px; }
         
-        /* Style des boutons */
-        .btn-group { margin-top: 40px; display: flex; justify-content: center; gap: 20px; }
-        
-        .btn { 
-            padding: 15px 30px; 
-            font-size: 18px; 
-            font-weight: bold;
-            border-radius: 8px; 
-            text-decoration: none; 
-            color: white;
-            transition: transform 0.2s;
-            display: inline-block;
+        /* Grille des 3 services principaux */
+        .main-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 30px; }
+        .card { 
+            background: white; width: 280px; padding: 20px; border-radius: 15px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: center; border-top: 5px solid #2980b9;
         }
-        .btn:hover { transform: scale(1.05); }
         
-        .btn-commande { background-color: #27ae60; }
-        .btn-assistance { background-color: #2980b9; }
+        .btn-order { 
+            display: inline-block; background: #2980b9; color: white; padding: 10px 20px; 
+            text-decoration: none; border-radius: 8px; margin-top: 15px; font-weight: bold;
+        }
+
+        /* Section Maintenance (Verrouillée) */
+        .lock-box { 
+            margin-top: 40px; background: #fff5f5; border: 2px dashed #e74c3c; 
+            padding: 30px; border-radius: 15px; text-align: center;
+        }
+        #maintenance-content { display: none; background: white; padding: 20px; border-radius: 15px; margin-top: 20px; }
         
-        footer { margin-top: 50px; color: #bdc3c7; font-size: 0.9rem; }
+        input[type="text"] { padding: 10px; width: 200px; border-radius: 5px; border: 1px solid #ddd; }
+        .btn-pay { background: #FF7900; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>KANKA SERVICES 🚀</h1>
-        <p style="color: #bdc3c7; margin-top: 10px;">Votre partenaire numérique à Kankalabé</p>
-    </header>
+<header>
+    <h1>KANKA SERVICES 🚀</h1>
+    <p>Votre partenaire de confiance à Kankalabé</p>
+</header>
 
-    <div class="container">
-        <h2>Que souhaitez-vous faire aujourd'hui ?</h2>
-        <p>Expertise en Consulting, Informatique et Maintenance.</p>
+<div class="container">
+    <h2 style="text-align:center;">Nos Services Disponibles</h2>
 
-        <div class="btn-group">
-            <a href="/passer-commande" class="btn btn-commande">
-                📦 Passer une commande
-            </a>
+    <div class="main-grid">
+        <div class="card" style="border-top-color: #e67e22;">
+            <h3>📦 Livraison à Domicile</h3>
+            <p>Courses et colis livrés rapidement chez vous à Kankalabé.</p>
+            <a href="https://wa.me/224621813894?text=Je%20souhaite%20une%20livraison" class="btn-order">Commander</a>
+        </div>
 
-            <a href="/demander-aide" class="btn btn-assistance">
-                🛠️ Demander assistance
-            </a>
+        <div class="card" style="border-top-color: #27ae60;">
+            <h3>👨‍🔧 Mise en Relation</h3>
+            <p>Trouvez les meilleurs électriciens, plombiers et maçons enregistrés.</p>
+            <a href="https://wa.me/224621813894?text=Je%20cherche%20un%20artisan" class="btn-order">Trouver un pro</a>
+        </div>
+
+        <div class="card" style="border-top-color: #2980b9;">
+            <h3>💻 Maintenance Ordi/Android</h3>
+            <p>Réparation et optimisation de vos appareils numériques.</p>
+            <button onclick="document.getElementById('maintenance-lock').scrollIntoView({behavior:'smooth'})" class="btn-order">Voir tarifs</button>
         </div>
     </div>
-<a href="https://wa.me/224621813894?text=Bonjour%20Mamadou,%20je%20souhaite%20un%20renseignement%20pour%20K-Smart" 
-   style="background-color: #25D366; 
-          color: white; 
-          padding: 12px 25px; 
-          border-radius: 30px; 
-          text-decoration: none; 
-          display: inline-block; 
-          font-weight: bold; 
-          font-family: Arial, sans-serif;
-          box-shadow: 2px 2px 10px rgba(0,0,0,0.2);">
-   <i class="fab fa-whatsapp"></i> Contactez-nous sur WhatsApp Business
-</a>
-    <footer>
-        <p>&copy; 2026 K-Smart - Tous droits réservés</p>
-    </footer>
+
+    <div class="lock-box" id="maintenance-lock">
+        <h3>🛠️ Assistance & Maintenance Privée</h3>
+        <p>Le diagnostic à distance nécessite un accès premium (10.000 GNF).</p>
+        
+        <input type="text" id="codeMaintenance" placeholder="Entrez votre code">
+        <button onclick="checkAccess()" class="btn-pay">Débloquer l'accès</button>
+        
+        <p style="font-size: 13px; margin-top: 15px;">
+            Pas de code ? Payez par <strong>Orange (628 22 93 72)</strong> ou <strong>MTN (660 18 47 28)</strong> <br>
+            puis <a href="https://wa.me/224621813894?text=Paiement%20Maintenance%20effectué">cliquez ici pour recevoir votre code</a>.
+        </p>
+
+        <div id="maintenance-content">
+            <h4 style="color: #27ae60;">✅ Accès Maintenance Activé</h4>
+            <ul style="text-align: left; display: inline-block;">
+                <li>Récupération de données : 50.000 GNF</li>
+                <li>Flashage Android : 30.000 GNF</li>
+                <li>Installation Logiciels : 40.000 GNF</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p style="text-align:center; padding: 40px; color: #7f8c8d;">© 2026 KANKA SERVICES - Mamadou Kenda SOW</p>
+</footer>
+
+<script>
+    function checkAccess() {
+        var code = document.getElementById("codeMaintenance").value;
+        if(code === "KANKA2026") {
+            document.getElementById("maintenance-content").style.display = "block";
+            alert("Accès autorisé !");
+        } else {
+            alert("Code invalide. Contactez Mamadou au 621 81 38 94");
+        }
+    }
+</script>
 
 </body>
 </html>
