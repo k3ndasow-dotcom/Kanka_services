@@ -1,89 +1,117 @@
 from flask import render_template, request, jsonify
 from datetime import datetime, timedelta
+import uuid
+
+# Importation des listes et de la fonction de sauvegarde depuis database.py
 from database import commandes, assistances, abonnes, livres, sauvegarder_donnees
 
 def register_routes(app):
 
     @app.route("/")
     def accueil():
+        """Affiche la page principale avec tous les onglets."""
         return render_template("index.html")
 
-    # --- 1. ONGLET LIVRAISON (Logique de paiement incluse) ---
+    # --- 1. ONGLET LIVRAISON (Calcul 5000 GNF + Transport) ---
     @app.route("/commande", methods=["POST"])
     def ajouter_commande():
         data = request.json
-        frais_fixe = 5000 # Prestation Kanka Services
-        transport = int(data.get("transport", 0))
         
-        nouvelle_commande = {
-            "id": datetime.now().strftime('%Y%m%d%H%M%S'),
-            "nom_client": data.get("client"),
+        # Récupération et calcul des frais selon tes règles
+        frais_prestation_fixe = 5000
+        frais_transport_manuel = int(data.get("transport", 0))
+        montant_total = frais_prestation_fixe + frais_transport_manuel
+        
+        nouvelle_livraison = {
+            "id_commande": str(uuid.uuid4())[:8],
+            "client_nom": data.get("client"),
             "lieu_livraison": data.get("lieu"),
-            "details_besoin": data.get("besoin"),
-            "frais_transport": transport,
-            "frais_prestation": frais_fixe,
-            "total_a_payer": frais_fixe + transport,
-            "date": datetime.now().strftime('%d/%m/%Y à %H:%M')
+            "description_besoin": data.get("besoin"),
+            "frais_transport": frais_transport_manuel,
+            "frais_prestation": frais_prestation_fixe,
+            "total_a_payer": montant_total,
+            "date_enregistrement": datetime.now().strftime('%d/%m/%Y à %H:%M'),
+            "statut_livraison": "En attente"
         }
-        commandes.append(nouvelle_commande)
+        
+        commandes.append(nouvelle_livraison)
+        # Sauvegarde globale pour ne rien perdre des autres onglets
         sauvegarder_donnees({"commandes": commandes, "assistances": assistances, "abonnes": abonnes, "livres": livres})
-        return jsonify(nouvelle_commande)
+        
+        print(f"INFO: Nouvelle commande de {nouvelle_livraison['client_nom']} enregistrée.")
+        return jsonify(nouvelle_livraison)
 
-    # --- 2. ONGLET MAINTENANCE & ASSISTANCE ---
+    # --- 2. ONGLET MAINTENANCE (PC et ANDROID) ---
     @app.route("/assistance", methods=["POST"])
     def demander_assistance():
         data = request.json
-        nouvelle_aide = {
-            "id": datetime.now().strftime('%Y%m%d%H%M%S'),
-            "nom": data.get("nom"),
-            "type_appareil": data.get("appareil", "Non précisé"),
-            "description_probleme": data.get("probleme"),
-            "date": datetime.now().strftime('%d/%m/%Y')
+        
+        nouvelle_demande = {
+            "id_ticket": datetime.now().strftime('%Y%m%d-%H%M'),
+            "nom_client": data.get("nom"),
+            "type_appareil": data.get("type"), # 'PC' ou 'Android'
+            "description_panne": data.get("probleme"),
+            "date_depot": datetime.now().strftime('%d/%m/%Y'),
+            "etat_reparation": "Reçu"
         }
-        assistances.append(nouvelle_aide)
+        
+        assistances.append(nouvelle_demande)
         sauvegarder_donnees({"commandes": commandes, "assistances": assistances, "abonnes": abonnes, "livres": livres})
-        return jsonify({"status": "success", "message": "Demande enregistrée"})
+        
+        return jsonify({"status": "success", "message": "Demande de maintenance bien reçue."})
 
-    # --- 3. ONGLET CDI (Inscription, Frais 5000, Dates) ---
+    # --- 3. ONGLET CDI : INSCRIPTION (Frais 5000 GNF) ---
     @app.route("/inscription_cdi", methods=["POST"])
     def inscription_cdi():
         data = request.json
-        maintenant = datetime.now()
-        fin_validite = maintenant + timedelta(days=90) # Trimestre
+        
+        date_debut = datetime.now()
+        # Validité de 3 mois (90 jours) pour l'abonnement
+        date_fin = date_debut + timedelta(days=90)
         
         nouvel_abonne = {
-            "nom": data.get("nom"),
-            "classe": data.get("classe"),
-            "quartier": data.get("adresse"),
-            "date_inscription": maintenant.strftime('%d/%m/%Y'),
-            "date_expiration": fin_validite.strftime('%d/%m/%Y'),
-            "frais_trimestre": "5 000 GNF"
+            "nom_eleve": data.get("nom"),
+            "classe_eleve": data.get("classe"),
+            "quartier_eleve": data.get("adresse"),
+            "date_adhesion": date_debut.strftime('%d/%m/%Y'),
+            "date_expiration": date_fin.strftime('%d/%m/%Y'),
+            "frais_inscription": "5 000 GNF",
+            "statut_paiement": "Payé"
         }
+        
         abonnes.append(nouvel_abonne)
         sauvegarder_donnees({"commandes": commandes, "assistances": assistances, "abonnes": abonnes, "livres": livres})
+        
         return jsonify(nouvel_abonne)
 
-    # --- 4. GESTION DU STOCK (Ajout, Recherche, Suppression) ---
+    # --- 4. ONGLET CDI : GESTION DU STOCK (Livres) ---
+    @app.route("/get_livres", methods=["GET"])
+    def recuperer_stock_livres():
+        """Renvoie la liste complète des livres pour la recherche."""
+        return jsonify(livres)
+
     @app.route("/ajouter_livre", methods=["POST"])
-    def ajouter_livre_stock():
+    def ajouter_livre_bibliotheque():
         data = request.json
-        livre = {
-            "id": datetime.now().strftime('%H%M%S'), # ID unique basé sur l'heure
-            "titre": data.get("titre"),
-            "auteur": data.get("auteur", "Inconnu"),
-            "quantite": int(data.get("qte", 1))
+        
+        nouveau_livre = {
+            "id_livre": datetime.now().strftime('%S%M%H'), # ID basé sur le temps
+            "titre_ouvrage": data.get("titre"),
+            "quantite_disponible": int(data.get("qte", 1)),
+            "date_ajout": datetime.now().strftime('%d/%m/%Y')
         }
-        livres.append(livre)
+        
+        livres.append(nouveau_livre)
         sauvegarder_donnees({"commandes": commandes, "assistances": assistances, "abonnes": abonnes, "livres": livres})
-        return jsonify(livre)
+        
+        return jsonify(nouveau_livre)
 
     @app.route("/supprimer_livre/<id_livre>", methods=["DELETE"])
-    def supprimer_livre(id_livre):
+    def supprimer_livre_du_stock(id_livre):
+        """Supprime définitivement un livre par son ID."""
         global livres
-        livres[:] = [l for l in livres if str(l.get('id')) != str(id_livre)]
+        # Filtrage pour garder tous les livres SAUF celui à supprimer
+        livres[:] = [livre for livre in livres if str(livre.get('id_livre')) != str(id_livre)]
+        
         sauvegarder_donnees({"commandes": commandes, "assistances": assistances, "abonnes": abonnes, "livres": livres})
-        return jsonify({"success": True})
-
-    @app.route("/get_livres")
-    def get_livres():
-        return jsonify(livres)
+        return jsonify({"resultat": "Livre supprimé avec succès."})
